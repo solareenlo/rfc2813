@@ -1,0 +1,638 @@
+<!DOCTYPE HTML>
+<html lang="ja" class="sidebar-visible no-js light">
+    <head>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-200.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-300.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-500.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-600.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-700.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-900.woff2" crossorigin>
+        <link rel="preload" as="font" type="../font/woff2" href="fonts/noto-serif-jp-v15-japanese-regular.woff2" crossorigin>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>RFC 2813 サーバプロトコル</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="fonts/font.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="src/theme/solarized-light-hljs.css">
+        <link rel="stylesheet" href="src/theme/solarized-dark-hljs.css">
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Home</a></li><li class="chapter-item expanded "><a href="introduction/index.html"><strong aria-hidden="true">1.</strong> 序説</a></li><li class="chapter-item expanded "><a href="global-database/index.html"><strong aria-hidden="true">2.</strong> グローバルデータベース</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="global-database/servers.html"><strong aria-hidden="true">2.1.</strong> サーバ</a></li><li class="chapter-item expanded "><a href="global-database/clients.html"><strong aria-hidden="true">2.2.</strong> クライアント</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="global-database/users.html"><strong aria-hidden="true">2.2.1.</strong> ユーザ</a></li><li class="chapter-item expanded "><a href="global-database/services.html"><strong aria-hidden="true">2.2.2.</strong> サービス</a></li></ol></li><li class="chapter-item expanded "><a href="global-database/channels.html"><strong aria-hidden="true">2.3.</strong> チャネル</a></li></ol></li><li class="chapter-item expanded "><a href="the-irc-server-specification/index.html"><strong aria-hidden="true">3.</strong> IRC サーバ仕様</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-irc-server-specification/overview.html"><strong aria-hidden="true">3.1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="the-irc-server-specification/character-codes.html"><strong aria-hidden="true">3.2.</strong> 文字コード</a></li><li class="chapter-item expanded "><a href="the-irc-server-specification/messages.html"><strong aria-hidden="true">3.3.</strong> メッセージ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="the-irc-server-specification/message-format-in-augmented-bnf.html"><strong aria-hidden="true">3.3.1.</strong> 拡張 BNF によるメッセージフォーマット</a></li></ol></li><li class="chapter-item expanded "><a href="the-irc-server-specification/numeric-replies.html"><strong aria-hidden="true">3.4.</strong> 数値返信</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/index.html"><strong aria-hidden="true">4.</strong> メッセージの詳細</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/connection-registration.html"><strong aria-hidden="true">4.1.</strong> 接続登録</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/password-message.html"><strong aria-hidden="true">4.1.1.</strong> Password メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/server-message.html"><strong aria-hidden="true">4.1.2.</strong> Server メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/nick.html"><strong aria-hidden="true">4.1.3.</strong> Nick</a></li><li class="chapter-item expanded "><a href="message-details/service-message.html"><strong aria-hidden="true">4.1.4.</strong> Service メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/quit.html"><strong aria-hidden="true">4.1.5.</strong> Quit</a></li><li class="chapter-item expanded "><a href="message-details/server-quit-message.html"><strong aria-hidden="true">4.1.6.</strong> Server quit メッセージ</a></li></ol></li><li class="chapter-item expanded "><a href="message-details/channel-operations.html"><strong aria-hidden="true">4.2.</strong> チャネル操作</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="message-details/join-message.html"><strong aria-hidden="true">4.2.1.</strong> Join メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/njoin-message.html"><strong aria-hidden="true">4.2.2.</strong> Njoin メッセージ</a></li><li class="chapter-item expanded "><a href="message-details/mode-message.html"><strong aria-hidden="true">4.2.3.</strong> Mode メッセージ</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="implementation-details/index.html"><strong aria-hidden="true">5.</strong> 実装内容</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="implementation-details/connection-liveness.html"><strong aria-hidden="true">5.1.</strong> 接続の '有効性'</a></li><li class="chapter-item expanded "><a href="implementation-details/accepting-a-client-to-server-connection.html"><strong aria-hidden="true">5.2.</strong> クライアントからサーバへの接続受入れ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="implementation-details/users.html"><strong aria-hidden="true">5.2.1.</strong> ユーザ</a></li><li class="chapter-item expanded "><a href="implementation-details/services.html"><strong aria-hidden="true">5.2.2.</strong> サービス</a></li></ol></li><li class="chapter-item expanded "><a href="implementation-details/Establishing-a-server-server-connection.html"><strong aria-hidden="true">5.3.</strong> サーバ-サーバの接続確立</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="implementation-details/link-options.html"><strong aria-hidden="true">5.3.1.</strong> リンクオプション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="implementation-details/compressed-server-to-server-links.html"><strong aria-hidden="true">5.3.1.1.</strong> 圧縮されたサーバ間リンク</a></li><li class="chapter-item expanded "><a href="implementation-details/anti-abuse-protections.html"><strong aria-hidden="true">5.3.1.2.</strong> 不正使用防止対策</a></li></ol></li><li class="chapter-item expanded "><a href="implementation-details/state-information-exchange-when-connecting.html"><strong aria-hidden="true">5.3.2.</strong> 接続時の状態情報の交換</a></li></ol></li><li class="chapter-item expanded "><a href="implementation-details/terminating-server-client-connections.html"><strong aria-hidden="true">5.4.</strong> サーバ-クライアント接続の終了</a></li><li class="chapter-item expanded "><a href="implementation-details/terminating-server-server-connections.html"><strong aria-hidden="true">5.5.</strong> サーバ-サーバの接続終了</a></li><li class="chapter-item expanded "><a href="implementation-details/tracking-nickname-changes.html"><strong aria-hidden="true">5.6.</strong> ニックネーム変更の追跡</a></li><li class="chapter-item expanded "><a href="implementation-details/tracking-recently-used-nicknames.html"><strong aria-hidden="true">5.7.</strong> 最近使ったニックネームの追跡</a></li><li class="chapter-item expanded "><a href="implementation-details/flood-control-of-clients.html"><strong aria-hidden="true">5.8.</strong> クライアントの大量リクエスト対策</a></li><li class="chapter-item expanded "><a href="implementation-details/non-blocking-lookups.html"><strong aria-hidden="true">5.9.</strong> ノンブロッキングルックアップ</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="implementation-details/hostname-dns-lookups.html"><strong aria-hidden="true">5.9.1.</strong> ホスト名 (DNS) ルックアップ</a></li><li class="chapter-item expanded "><a href="implementation-details/username-ident-lookups.html"><strong aria-hidden="true">5.9.2.</strong> ユーザ名 (Ident) ルックアップ</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="current-problems/index.html"><strong aria-hidden="true">6.</strong> 現在の問題点</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="current-problems/scalability.html"><strong aria-hidden="true">6.1.</strong> スケーラビリティ</a></li><li class="chapter-item expanded "><a href="current-problems/labels.html"><strong aria-hidden="true">6.2.</strong> ラベル</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="current-problems/nicknames.html"><strong aria-hidden="true">6.2.1.</strong> ニックネーム</a></li><li class="chapter-item expanded "><a href="current-problems/channels.html"><strong aria-hidden="true">6.2.2.</strong> チャネル</a></li><li class="chapter-item expanded "><a href="current-problems/servers.html"><strong aria-hidden="true">6.2.3.</strong> サーバ</a></li></ol></li><li class="chapter-item expanded "><a href="current-problems/algorithms.html"><strong aria-hidden="true">6.3.</strong> アルゴリズム</a></li></ol></li><li class="chapter-item expanded "><a href="security-considerations/index.html"><strong aria-hidden="true">7.</strong> セキュリティへの配慮</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="security-considerations/authentication.html"><strong aria-hidden="true">7.1.</strong> 認証</a></li><li class="chapter-item expanded "><a href="security-considerations/integrity.html"><strong aria-hidden="true">7.2.</strong> インテグリティ</a></li></ol></li><li class="chapter-item expanded "><a href="current-support-and-availability/index.html"><strong aria-hidden="true">8.</strong> 現在のサポートと可用性</a></li><li class="chapter-item expanded "><a href="acknowledgements/index.html"><strong aria-hidden="true">9.</strong> 謝辞</a></li><li class="chapter-item expanded "><a href="references/index.html"><strong aria-hidden="true">10.</strong> 参考</a></li><li class="chapter-item expanded "><a href="authors-address/index.html"><strong aria-hidden="true">11.</strong> Author's Address</a></li><li class="chapter-item expanded "><a href="full-copyright-statement/index.html"><strong aria-hidden="true">12.</strong> Full Copyright Statement</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-light">Solarized Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="solarized-dark">Solarized Dark</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">RFC 2813 サーバプロトコル</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/solareenlo/rfc2813" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <pre><code>Network Working Group                                           C. Kalt
+Request for Comments: 2813                                   April 2000
+Updates: 1459
+Category: Informational
+</code></pre>
+<h1 align="center">
+Internet Relay Chat: サーバプロトコル
+</h1>
+<h2 id="irc"><a class="header" href="#irc">IRC</a></h2>
+<ul>
+<li><a href="https://solareenlo.com/rfc1459">RFC 1459</a> (Internet Relay Chat Protocol)</li>
+<li><a href="https://solareenlo.com/rfc2810">RFC 2810</a> (Internet Relay Chat: Architecture)</li>
+<li><a href="https://solareenlo.com/rfc2811">RFC 2811</a> (Internet Relay Chat: Channel Management)</li>
+<li><a href="https://solareenlo.com/rfc2812">RFC 2812</a> (Internet Relay Chat: Client Protocol)</li>
+<li><a href="https://solareenlo.com/rfc2813">RFC 2813</a> (Internet Relay Chat: Server Protocol)</li>
+<li><a href="https://solareenlo.com/rfc7194">RFC 7194</a> (Default Port for Internet Relay Chat (IRC) via TLS/SSL)</li>
+</ul>
+<h2 id="このメモの位置付け"><a class="header" href="#このメモの位置付け">このメモの位置付け</a></h2>
+<p>このメモは、インターネットコミュニティーのための情報を提供するものです。このメモは、いかなる種類のインターネット標準も規定するものではありません。このメモの配布は無制限です。</p>
+<h2 id="著作権について"><a class="header" href="#著作権について">著作権について</a></h2>
+<p>Copyright (C) The Internet Society (2000).  All Rights Reserved.</p>
+<h2 id="概要"><a class="header" href="#概要">概要</a></h2>
+<p>IRC（Internet Relay Chat）プロトコルは、クライアント・サーバモデルをベースとしながらも、サーバ同士が効果的にネットワークを形成することを可能にしています。</p>
+<p>この文書では、サーバが相互に通信するために使用するプロトコルを定義しています。元々はクライアントプロトコルのスーパーセットでしたが、異なる進化を遂げました。</p>
+<p>1993年5月に <a href="https://solareenlo.com/rfc1459">RFC 1459 [IRC]</a> の一部として初めて正式に文書化され、それ以降にもたらされた変更のほとんどは、プロトコルの拡張性に重点を置いて開発されたため、ほとんどの変更点はこのドキュメントに記載されています。スケーラビリティの向上により、既存のワールドワイドなネットワークは成長を続け、旧来の仕様では考えられなかった規模に到達することができるようになりました。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="1-序説"><a class="header" href="#1-序説">1. 序説</a></h1>
+<p>この文書は、IRC サーバの実装に取り組んでいる人々を対象としていますが、IRC サービスを実装している人にも役に立つでしょう。</p>
+<p>サーバは、&quot;Internet Relay Chat: アーキテクチャ&quot; [<a href="https://solareenlo.com/rfc2810">IRC-ARCH</a>] で定義されたリアルタイム会議に必要な3つの基本サービスを提供します。クライアントプロトコルによるクライアントロケータ [<a href="https://solareenlo.com/rfc2812">IRC-CLIENT</a>]、この文書で定義されたサーバプロトコルによるメッセージ中継、特定の規則に従ったチャネルのホストと管理 [<a href="https://solareenlo.com/rfc2811">IRC-CHAN</a>] です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="2-グローバルデータベース"><a class="header" href="#2-グローバルデータベース">2. グローバルデータベース</a></h1>
+<p>IRC プロトコルはかなり分散したモデルを定義していますが、各サーバは IRC ネットワーク全体に関する &quot;グローバルな状態データベース&quot; を維持します。このデータベースは理論上、すべてのサーバで同一です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="21-サーバ"><a class="header" href="#21-サーバ">2.1 サーバ</a></h1>
+<p>サーバは、最大63文字からなる名前によって一意に識別されます。サーバ名に使用できるものとできないものについては、プロトコルの文法規則（<a href="global-database/../the-irc-server-specification/message-format-in-augmented-bnf.html">3.3.1 項</a>）を参照してください。</p>
+<p>各サーバは通常、他のすべてのサーバによって知られていますが、&quot;ホストマスク&quot; を定義して、サーバをその名前に従ってグループ化することが可能です。ホストマスク領域内では、すべてのサーバがホストマスクに一致する名前を持ち、ホストマスクに一致する名前を持つ他のサーバは、ホストマスク領域外の IRC ネットワークに接続してはなりません。領域の外にいるサーバは、領域内に存在する個々のサーバについて何も知りませんが、その代わりに名前にホストマスクを持つ仮想サーバが提示されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="22-クライアント"><a class="header" href="#22-クライアント">2.2 クライアント</a></h1>
+<p>各クライアントに対して、すべてのサーバは以下の情報を持つ必要があります。</p>
+<ul>
+<li>ネットワイド一意識別子（その形式はクライアントの種類によって異なります）。</li>
+<li>およびクライアントが接続されているサーバ。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="221-ユーザ"><a class="header" href="#221-ユーザ">2.2.1 ユーザ</a></h1>
+<p>各ユーザは、最大9文字のユニークなニックネームによって他のユーザと区別されます。ニックネームに使用できるもの、できないものについてはプロトコルの文法規則（<a href="global-database/../the-irc-server-specification/message-format-in-augmented-bnf.html">3.3.1 項</a>）を参照してください。ニックネームに加えて、全てのサーバは全てのユーザについて以下の情報を持っている必要があります。</p>
+<ul>
+<li>ユーザが実行されているホスト名。</li>
+<li>そのホストでのユーザのユーザ名。</li>
+<li>クライアントが接続されているサーバ。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="222-サービス"><a class="header" href="#222-サービス">2.2.2 サービス</a></h1>
+<p>各サービスは、ニックネームとサーバ名からなるサービス名で他のサービスと区別されます。ニックネームは最大9文字です。ニックネームに使用できるもの、できないものについてはプロトコルの文法規則（<a href="global-database/../the-irc-server-specification/message-format-in-augmented-bnf.html">3.3.1 項</a>）を参照してください。サービス名を構成するのに使われるサーバ名は、そのサービスが接続されているサーバの名前です。このサービス名に加えて、すべてのサーバはサービスタイプを知っている必要があります。</p>
+<p>サービスはその識別子のフォーマットによってユーザと異なりますが、より重要なのは、サービスとユーザはサーバに対して同じ種類のアクセスを持っていないことです。サービスは、サーバが保持するグローバルな状態情報の一部または全部を要求することができますが、利用できるコマンドはより制限されます。（これについての詳細は <a href="https://solareenlo.com/rfc2812">&quot;IRC クライアントプロトコル&quot; [IRC- CLIENT]</a> 参照。）また、チャネルへの参加が許可されていません。最後に、サービスは通常 <a href="global-database/../implementation-details/flood-control-of-clients.html">5.8 節</a> で説明されている &quot;大量リクエスト対策&quot; メカニズムの対象にはなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="23-チャネル"><a class="header" href="#23-チャネル">2.3 チャネル</a></h1>
+<p>サービスと同様に、チャネルにもスコープ [<a href="https://solareenlo.com/rfc2811">IRC-CHAN</a>] があり、必ずしもすべてのサーバに知られているわけではありません。チャネルの存在がサーバに知られている場合、サーバはチャネルのモードと同様にチャネルのメンバを記録しておかなければなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="3-irc-サーバ仕様"><a class="header" href="#3-irc-サーバ仕様">3. IRC サーバ仕様</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="31-概要"><a class="header" href="#31-概要">3.1 概要</a></h1>
+<p>ここで説明するプロトコルは、サーバ間の接続で使用するためのものです。クライアントからサーバへの接続については、IRC クライアントプロトコル仕様を参照してください。</p>
+<p>ただし、サーバ接続よりも（信用できないとされる）クライアント接続の方が、より多くの制約があります。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="32-文字コード"><a class="header" href="#32-文字コード">3.2 文字コード</a></h1>
+<p>特定の文字セットは指定しません。プロトコルは、8ビットで構成されるオクテットという符号体系を基本としています。各メッセージはこのオクテットの数で構成されますが、一部のオクテット値はメッセージの区切りとなる制御コードに使用されます。</p>
+<p>8ビットプロトコルであるにもかかわらず、デリミタとキーワードがあるため、US-ASCII の端末と telnet 接続でほとんど使用可能です。</p>
+<p>IRC はスカンジナビア語が起源なので、<code>{}|^</code> という文字は、それぞれ <code>[]\~</code> という文字に相当する小文字とみなされます。これは、2つのニックネームやチャネル名の等価性を判断する際に重要な問題です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="33-メッセージ"><a class="header" href="#33-メッセージ">3.3 メッセージ</a></h1>
+<p>サーバとクライアントは互いにメッセージを送信し、その応答が発生することもあれば、発生しないこともあります。サーバはクライアントのためにルーティングタスクを行うことが多いため、サーバ間の通信のほとんどは応答を生成しません。</p>
+<p>各 IRC メッセージは、接頭辞（オプション）、コマンド、コマンドパラメータ（最大15個）の最大3つの主要部分から構成されることができます。接頭辞、コマンド、およびすべてのパラメータは、それぞれ1つの ASCII スペース文字（<code>0x20</code>）で区切られます。</p>
+<p>接頭辞の存在は、先頭の ASCII コロン文字（<code>:</code>、<code>0x3b</code>）1つで示され、これはメッセージ自体の最初の文字でなければなりません。コロンと接頭辞の間に隙間（ホワイトスペース）を入れてはいけません。接頭辞は、サーバがメッセージの本当の出所を示すために使われます。接頭辞がない場合、そのメッセージは受信したコネクションから発信されたものとみなされます。クライアントは自分からメッセージを送るときには接頭辞を使うべきではありません。もし使うなら、有効な接頭辞はそのクライアントに関連付けられた登録済みのニックネームだけです。</p>
+<p>サーバーはメッセージを受信すると、最終的に想定される接頭辞を使用してその送信元を特定する必要があります。サーバ内部のデータベースで接頭辞が見つからない場合は破棄し、接頭辞が不明なサーバからのメッセージであることを示す場合は、そのメッセージを受信したリンクを切断しなければなりません。このような状況でリンクを落とすことは少し過剰ですが、ネットワークの整合性を維持し、将来の問題を防ぐために必要なことです。もう一つの一般的なエラー条件は、サーバー内部のデータベースで見つかった接頭辞が、メッセージが到着した場所とは異なるリンクから登録された別のソースを識別することです。メッセージがサーバリンクから受信され、接頭辞がクライアントを識別する場合、クライアントに対して KILL メッセージを発行し、全サーバに送信しなければなりません。その他の場合、メッセージが到着したリンクは、クライアントの場合は破棄されるべきで、サーバの場合は破棄されなければなりません。いずれの場合も、メッセージは破棄されなければなりません。</p>
+<p>コマンドは、有効な IRC コマンドか、ASCII テキストで表現された3桁の数字でなければなりません。</p>
+<p>IRC メッセージは常に CR-LF（キャリッジリターン-ラインフィード）のペアで終了する文字の行であり、これらのメッセージは最後の CR-LF を含むすべての文字をカウントして512文字を超えないものとします。従って、コマンドとそのパラメータには最大510文字が許されます。継続メッセージ行の規定はありません。現在の実装の詳細については、<a href="the-irc-server-specification/../implementation-details/index.html">5 章</a> を参照してください。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="331-拡張-bnf-によるメッセージフォーマット"><a class="header" href="#331-拡張-bnf-によるメッセージフォーマット">3.3.1 拡張 BNF によるメッセージフォーマット</a></h1>
+<p>プロトコルメッセージは、オクテットの連続したストリームから抽出されなければなりません。現在の解決策は、CR と LF という2つの文字をメッセージのセパレータとして指定することです。空のメッセージは黙って無視されるので、メッセージ間で CR-LF のシーケンスが余分な問題なく使用できるようになります。</p>
+<p>抽出されたメッセージは、<code>&lt;prefix&gt;</code>、<code>&lt;command&gt;</code>、パラメータのリスト（<code>&lt;params&gt;</code>）という構成要素にパースされます。</p>
+<p>このための拡張 BNF 表現は、<a href="https://solareenlo.com/rfc2812">&quot;IRC Client Protocol&quot; [IRC-CLIENT]</a> にあります。</p>
+<p>拡張接頭辞（[<code>!</code> ユーザ、<code>@</code> ホスト ]）は、サーバ間通信では使用してはならず、サーバからクライアントへのメッセージにのみ使用し、クライアントが追加の問い合わせをしなくてもメッセージの送信元に関するより有用な情報を提供することを目的としています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="34-数値返信"><a class="header" href="#34-数値返信">3.4 数値返信</a></h1>
+<p>サーバに送信されたメッセージのほとんどは、何らかの応答を生成します。最も一般的な返信は数値による返信で、エラーと正常な返信の両方に使用されます。数値返信は、送信者接頭辞、3桁の数値、リプライのターゲットからなる1つのメッセージとして送信する必要があります。サーバがこのようなメッセージを受信すると、静かに削除されます。キーワードが文字列ではなく3桁の数字で構成されていることを除けば、他のすべての点で、数値による返信は通常のメッセージと同じです。異なる返信のリストは <a href="https://solareenlo.com/rfc2812">&quot;IRC クライアントプロトコル&quot; [IRC-CLIENT]</a> で提供されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="4-メッセージの詳細"><a class="header" href="#4-メッセージの詳細">4. メッセージの詳細</a></h1>
+<p>IRC サーバとクライアントが認識するすべてのメッセージは、IRC クライアントプロトコル仕様に記述されています。</p>
+<p>ERR_NOSUCHSERVER が返信された場合、メッセージのターゲットが見つからなかったことを意味します。サーバは、このエラー以降、そのコマンドに対して他の応答を送ってはなりません。</p>
+<p>クライアントが接続されているサーバは、メッセージ全体を解析し、適切なエラーを返すことが要求されます。メッセージの解析中に致命的なエラーが発生した場合、クライアントにエラーを返し、解析は終了しなければなりません。致命的なエラーは、不正なコマンド、サーバにとって未知の宛先（サーバ、クライアント、チャネル名がこれに該当）、十分でないパラメータ、不正な権限に起因する場合があります。</p>
+<p>パラメータの完全なセットが提示された場合、それぞれの有効性をチェックし、適切なレスポンスをクライアントに返さなければなりません。コンマを区切り文字としてパラメータリストを使用するメッセージの場合、各項目に対して応答を送信しなければなりません。</p>
+<p>以下の例では、一部のメッセージはフルフォーマットで表示されます。</p>
+<pre><code>:Name COMMAND parameter list
+</code></pre>
+<p>このような例は、&quot;Name&quot; からのメッセージがサーバ間で転送されていることを表しています。リモートサーバが正しい経路で返信できるように、メッセージの元の送信者の名前を含めることが不可欠です。</p>
+<p>クライアントからサーバへの通信のためのメッセージの詳細は、<a href="https://solareenlo.com/rfc2812">&quot;IRC クライアントプロトコル&quot; [IRC-CLIENT]</a> に記述されています。以下のページのいくつかの章は、これらのメッセージの一部に適用されます。それらは、サーバ間の通信にのみ関連するメッセージの仕様への追加、またはサーバの実装への追加です。ここで紹介するメッセージは、サーバ間通信にのみ使用されるものです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="41-接続登録"><a class="header" href="#41-接続登録">4.1 接続登録</a></h1>
+<p>ここで説明するコマンドは、他の IRC サーバとの接続を登録するために使用されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="411-password-メッセージ"><a class="header" href="#411-password-メッセージ">4.1.1 Password メッセージ</a></h1>
+<pre><code>   Command: PASS
+Parameters: &lt;password&gt; &lt;version&gt; &lt;flags&gt; [&lt;options&gt;]
+</code></pre>
+<p>PASS コマンドは、&quot;接続パスワード&quot; を設定するために使用します。このパスワードは、接続を登録しようとする前に設定する必要があります。現在、これはサーバが SERVER コマンドの前に PASS コマンドを送信する必要があることを意味します。PASS コマンドは、1つの接続に対して1つだけ受け付けます。</p>
+<p>最後の3つのパラメータは、クライアント（ユーザやサービスなど）から受信した場合は無視しなければなりません。これらは、サーバから受信した場合にのみ関連します。</p>
+<p><code>&lt;version&gt;</code> パラメータは，最低4文字，最高14文字までの文字列を指定します。最初の4文字は数字でなければならず，メッセージを発行するサーバが知っているプロトコルのバージョンを示します。この文書で記述されるプロトコルはバージョン 2.10 であり，<code>0210</code> と符号化されます。残りのオプションのキャラクタは実装に依存し、ソフトウェアのバージョン番号を記述する必要があります。</p>
+<p><code>&lt;flags&gt;</code> パラメータは最大100文字の文字列です。文字 <code>|</code>（<code>%x7C</code>）で区切られた2つの部分文字列で構成されます。存在する場合、最初の部分文字列は実装の名前でなければなりません。参考実装（<a href="message-details/../current-support-and-availability/index.html">8. 現在のサポートと可用性</a> 参照）では、&quot;IRC&quot; という文字列を使用しています。識別子を必要とする別の実装が書かれた場合、その識別子は RFC の発行を通じて登録される必要がありませす。2番目の部分文字列は実装に依存します。どちらの文字列もオプションですが，文字 <code>|</code> は必須です。文字 <code>|</code> は，いずれの部分文字列にも出現してはなりません。</p>
+<p>最後のパラメータである <code>&lt;options&gt;</code> はリンクオプションに使用されます。プロトコルで定義されているオプションは、リンク圧縮（文字 <code>Z</code> を使用）と不正利用防止フラグ（文字 <code>P</code> を使用）のみです。これらのオプションの詳細については、それぞれ <a href="message-details/../implementation-details/compressed-server-to-server-links.html">5.3.1.1 圧縮されたサーバ間リンク</a> と <a href="message-details/../implementation-details/anti-abuse-protections.html">5.3.1.2 不正利用防止対策</a> を参照してください。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_ALREADYREGISTRED
+</code></pre>
+<p>例：</p>
+<pre><code>     PASS moresecretpassword 0210010000 IRC|aBgH$ Z
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="412-server-メッセージ"><a class="header" href="#412-server-メッセージ">4.1.2 Server メッセージ</a></h1>
+<pre><code>   Command: SERVER
+Parameters: &lt;servername&gt; &lt;hopcount&gt; &lt;token&gt; &lt;info&gt;
+</code></pre>
+<p>SERVER コマンドは、新しいサーバを登録するために使用されます。新しい接続は、その相手に対して自分自身をサーバとして紹介します。このメッセージは、サーバのデータをネット全体に渡すためにも使われます。新しいサーバがネットに接続されると、そのサーバに関する情報はネットワーク全体にブロードキャストされなければなりません。</p>
+<p><code>&lt;info&gt;</code> パラメータには空白文字が含まれることがあります。</p>
+<p><code>&lt;hopcount&gt;</code>は、各サーバがどの程度離れているかという内部情報を全サーバに与えるために使用されます。ローカルピアの値は <code>0</code> で、渡されたサーバごとに値が増加します。完全なサーバリストがあれば、サーバツリー全体のマップを作成することが可能ですが、ホストマスクがこれを阻んでいます。</p>
+<p><code>&lt;token&gt;</code> パラメータは、サーバが識別子として使用する符号なし数字です。この識別子は、その後サーバ間で送信される NICK および SERVICE メッセージでサーバを参照するために使用されます。サーバトークンは、使用されるポイントツーポイントピアリングでのみ意味を持ち、その接続で一意でなければなりません。これらはグローバルではありません。</p>
+<p>SERVER メッセージは、(a) まだ登録されておらず、サーバとして登録しようとしている接続、または (b) 他のサーバへの既存の接続、この場合、SERVER メッセージはそのサーバの後ろに新しいサーバを紹介している、のいずれかからのみ受け入れられなければなりません。</p>
+<p>SERVER コマンドを受信した際に発生するエラーの多くは、宛先ホスト（ターゲットサーバ）によって接続が切断されることになります。このような事象は重大であるため、エラーの返答は通常、数値ではなく &quot;ERROR&quot; コマンドを使用して送信されます。</p>
+<p>SERVER メッセージが解析され、それが受信サーバにすでに知られているサーバを紹介しようとした場合、サーバへの重複したルートが形成され、IRC ツリーの非周期性が壊れるため、そのメッセージが到着した接続は（正しい手順で）閉じられなければなりません。条件によっては、すでに知られているサーバが登録されている接続を代わりに閉じてもかまいません。この種のエラーは、2番目に稼働しているサーバの問題である可能性もあり、プロトコル内で修正することはできず、通常は人間の介入を必要とすることに注意する必要があります。この種の問題は、IRC ネットワークの一部が簡単に孤立してしまい、それぞれのパーティションに接続されている2台のサーバのうち1台が、2つのパーティションを結合することができなくなるため、特に陰湿なものとなっています。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_ALREADYREGISTRED
+</code></pre>
+<p>例：</p>
+<pre><code>SERVER test.oulu.fi 1 1 :Experimental server
+    ; 新しいサーバ test.oulu.fi が自己紹介し、登録を試みています。
+
+:tolsun.oulu.fi SERVER csd.bu.edu 5 34 :BU Central Server
+    ; サーバ tolsun.oulu.fi は、5ホップ離れている csd.bu.edu へのアップリンクです。
+      トークン &quot;34&quot; は、csd.bu.edu に接続する新しいユーザやサービスを紹介する際に、tolsun.ulu.fi によって使用されます。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="413-nick"><a class="header" href="#413-nick">4.1.3 Nick</a></h1>
+<pre><code>   Command: NICK
+Parameters: &lt;nickname&gt; &lt;hopcount&gt; &lt;username&gt; &lt;host&gt; &lt;servertoken&gt;
+            &lt;umode&gt; &lt;realname&gt;
+</code></pre>
+<p>この形式の NICK メッセージは、ユーザ接続から許可されてはいけません。しかし、IRC ネットワークに新しいユーザが参加したことを他のサーバに通知するために、NICK/USER ペアの代わりに使用する必要があります。</p>
+<p>このメッセージは、実際には3つの異なるメッセージが組み合わされたものです。NICK、USER、MODE <a href="https://solareenlo.com/rfc2812">[IRC-CLIENT]</a> です。</p>
+<p><code>&lt;hopcount&gt;</code> パラメータは、ユーザがホームサーバからどのくらい離れているかを示すためにサーバが使用します。ローカル接続の場合、ホップカウントは <code>0</code> です。ホップカウントの値は、渡されたサーバごとに増加されます。</p>
+<p><code>&lt;servertoken&gt;</code> パラメータは USER の <code>&lt;servername&gt;</code> パラメータを置き換えます（サーバートークンの詳細については <a href="message-details/./server-message.html">4.1.2 節</a> を参照してください）。</p>
+<p>例：</p>
+<pre><code>NICK syrk 5 kalt millennium.stealth.net 34 +i :Christophe Kalt
+    ; ニックネーム &quot;syrk&quot;、ユーザ名 &quot;kalt&quot; の新規ユーザが、
+      ホスト &quot;millennium.stealth.net&quot; からサーバ &quot;34&quot; （前の例では &quot;csd.bu.edu&quot;）に接続した場合。
+
+:krys NICK syrk
+    ; &quot;IRC クライアントプロトコル&quot; [IRC-CLIENT] で定義され、サーバ間で使用される NICK メッセージのもう一つの形式：
+      krys はニックネームを syrk に変更しました。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="414-service-メッセージ"><a class="header" href="#414-service-メッセージ">4.1.4 Service メッセージ</a></h1>
+<pre><code>   Command: SERVICE
+Parameters: &lt;servicename&gt; &lt;servertoken&gt; &lt;distribution&gt; &lt;type&gt;
+             &lt;hopcount&gt; &lt;info&gt;
+</code></pre>
+<p>SERVICE コマンドは、新しいサービスを導入するために使用されます。この形式の SERVICE メッセージは、クライアント（未登録、または登録済み）接続から許可されるべきではありません。しかし、IRC ネットワークに参加する新しいサービスを他のサーバに通知するために、サーバ間で使用されなければなりません。</p>
+<p><code>&lt;servertoken&gt;</code> は、サービスが接続されているサーバを識別するために使用されます。（サーバートークンの詳細については、<a href="message-details/./server-message.html">4.1.2 節</a> を参照してください）。</p>
+<p><code>&lt;hopcount&gt;</code> パラメータは、サーバが、あるサービスがホームサーバからどれだけ離れているかを示すために使用されます。ローカル接続の場合、ホップカウントは <code>0</code> です。ホップカウントの値は、渡されたサーバによって増加します。</p>
+<p><code>&lt;distribution&gt;</code> パラメータは、サービスの可視性を指定するために使用します。サービスは、ディストリビューションに一致する名前を持つサーバにのみ知られている可能性があります。一致するサーバがサービスを知るためには、そのサーバとサービスの接続先サーバとの間のネットワーク経路が、すべてマスクに一致する名前を持つサーバで構成されている必要があります。制限をかけない場合は、プレーンな <code>*</code> を使用します。</p>
+<p><code>&lt;type&gt;</code> パラメータは現在、将来の使用のために予約されています。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_ALREADYREGISTRED            ERR_NEEDMOREPARAMS
+        ERR_ERRONEUSNICKNAME
+        RPL_YOURESERVICE                RPL_YOURHOST
+        RPL_MYINFO
+</code></pre>
+<p>例：</p>
+<pre><code>VICE dict@irc.fr 9 *.fr 0 1
+    ; サーバ &quot;9&quot; に登録されている &quot;フランス語辞書 r&quot; を他のサーバにアナウンスしています。
+     このサービスは、サーバ名が &quot;*.fr&quot; に一致するサーバでのみ利用可能です。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="415-quit"><a class="header" href="#415-quit">4.1.5 Quit</a></h1>
+<pre><code>   Command: QUIT
+Parameters: [&lt;Quit Message&gt;]
+</code></pre>
+<p>クライアントのセッションは QUIT メッセージで終了します。サーバは、QUIT メッセージを送信したクライアントとの接続を終了しなければなりません。&quot;終了メッセージ&quot; が指定された場合、デフォルトのメッセージ、ニックネーム、 サービス名の代わりにこれが送られます。</p>
+<p>&quot;ネットスプリット&quot;（<a href="message-details/./server-quit-message.html">4.1.6 節</a> 参照）が発生した場合、&quot;終了メッセージ&quot; は関係する2つのサーバの名前をスペースで区切って構成されます。最初の名前はまだ接続しているサーバの名前であり，2番目の名前は切断されたサーバの名前、または離脱したクライアントが接続していたサーバの名前です。</p>
+<pre><code>   &lt;Quit Message&gt; =  &quot;:&quot; servername SPACE servername
+</code></pre>
+<p>&quot;終了メッセージ&quot; は &quot;ネットスプリット&quot; に対して特別な意味を持つので、サーバはクライアントが上記のような形式の <code>&lt;Quit Message&gt;</code> を使用することを許可してはいけません。</p>
+<p>その他の理由で、クライアントが QUIT コマンドを発行せずにクライアント接続を閉じた場合（例：クライアントが死亡し、ソケットで EOF が発生）、サーバは、その原因となったイベントの性質を反映した何らかのメッセージで、終了メッセージを埋める必要があります。一般的に、これはシステム固有のエラーを報告することによって行われます。</p>
+<p>数値返信：</p>
+<pre><code>        None.
+</code></pre>
+<p>例：</p>
+<pre><code>:WiZ QUIT :Gone to have lunch
+    ; 望ましいメッセージの形成。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="416-server-quit-メッセージ"><a class="header" href="#416-server-quit-メッセージ">4.1.6 Server quit メッセージ</a></h1>
+<pre><code>   Command: SQUIT
+Parameters: &lt;server&gt; &lt;comment&gt;
+</code></pre>
+<p>SQUITメッセージには、2つの明確な使い方があります。</p>
+<p>最初のもの（<a href="https://solareenlo.com/rfc2812">&quot;Internet Relay Chat: クライアントプロトコル&quot; [IRC-CLIENT]</a> で説明）は、オペレータがローカルまたはリモートサーバのリンクを切断することを可能にします。この形式のメッセージは、最終的にはサーバがリモートサーバのリンクを切断するためにも使用されます。</p>
+<p>このメッセージの2つ目の用途は、&quot;ネットワークスプリット&quot;（&quot;ネットスプリット&quot;とも呼ばれる）が発生したとき、言い換えれば、終了したサーバや死んだサーバを他のサーバに知らせるために必要です。あるサーバが他のサーバとの接続を切断したい場合、他のサーバに SQUIT メッセージを送信する必要があります。このとき、サーバパラメータとして他のサーバの名前を使用し、サーバは終了するサーバとの接続を切断します。</p>
+<p><code>&lt;comment&gt;</code> は、エラーメッセージや同様のメッセージをここに置くべきサーバによって埋められます。</p>
+<p>コネクションを閉じた側のサーバは、そのリンクの背後にあると考えられる他のすべてのサーバのコネクションに対して、SQUIT メッセージを送信する必要があります。</p>
+<p>同様に、QUIT メッセージは、その終了するリンクの背後にあるすべてのクライアントに代わって、まだ接続している他のサーバに送信されるかもしれません。これに加えて、&quot;分割&quot; によってメンバを失ったチャネルの全メンバに QUIT メッセージを送らなければなりません。チャネルメンバへのメッセージは、各クライアントのローカルサーバで生成されます。</p>
+<p>サーバ接続が早期に切断された場合（リンクの反対側のサーバが死んだなど）、この切断を検出したサーバは、ネットワークの残りの部分に接続が終了したことを通知し、コメントフィールドに適切な内容を記入することが要求されます。</p>
+<p>SQUIT メッセージの結果としてクライアントが削除されたとき、サーバは将来のニックネームの衝突を防ぐために、一時的に利用できないニックネームのリストにニックネームを追加すべきです。この手順の詳細については <a href="message-details/../implementation-details/tracking-recently-used-nicknames.html">5.7 最近使ったニックネームの追跡</a> を参照してください。</p>
+<p>When a client is removed as the result of a SQUIT message, the server should add the nickname to the list of temporarily unavailable nicknames in an attempt to prevent future nickname collisions. See section 5.7 (Tracking recently used nicknames) for more information on this procedure.</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NOPRIVILEGES                ERR_NOSUCHSERVER
+        ERR_NEEDMOREPARAMS
+</code></pre>
+<p>例：</p>
+<pre><code>SQUIT tolsun.oulu.fi :Bad Link ?
+    ; tolson.oulu.fi のサーバリンクは &quot;Bad Link&quot; のため、終了しました。
+
+:Trillian SQUIT cm22.eng.umd.edu :Server out of control
+    ; Trillian からの &quot;Server out of control&quot; のため
+      &quot;cm22.eng.umd.edu&quot; をネットから切断するというメッセージ。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="42-チャネル操作"><a class="header" href="#42-チャネル操作">4.2 チャネル操作</a></h1>
+<p>このメッセージ群は、チャネル、そのプロパティ（チャネルモード）、およびそのコンテンツ（通常はユーザ）を操作することに関係しています。これらの実装では、ネットワークの反対側の端にいるユーザがコマンドを送信すると、最終的に衝突することになるため、多くのレースコンディションが不可避となります。また、<code>&lt;nick&gt;</code> パラメータが与えられると、それが最近変更された場合に備えて、 サーバがその履歴をチェックすることを保証するために、 ニックネームの履歴を保持することが要求されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="421-join-メッセージ"><a class="header" href="#421-join-メッセージ">4.2.1 Join メッセージ</a></h1>
+<pre><code>   Command: JOIN
+Parameters: &lt;channel&gt;[ %x7 &lt;modes&gt; ]
+            *( &quot;,&quot; &lt;channel&gt;[ %x7 &lt;modes&gt; ] )
+</code></pre>
+<p>JOIN コマンドは、クライアントが特定のチャネルのリスニングを開始するために使用されます。クライアントがチャネルに参加できるかどうかは、クライアントが接続しているローカルサーバのみが確認します。他のサーバは、他のサーバからコマンドを受信すると、自動的にユーザをチャネルに追加します。</p>
+<p>オプションとして、制御 G（<code>^G</code> または ASCII 7）をセパレータとして、チャネルのユーザステータス（チャネルモード <code>O</code>, <code>o</code>, <code>v</code>）をチャネル名に付加することができます。このようなデータは、メッセージがサーバから受信されていない場合は無視されなければなりません。このフォーマットはクライアントに送信してはならず、サーバ間でのみ使用可能であり、避けるべきです。</p>
+<p>JOIN コマンドは全サーバにブロードキャストされ、各サーバがチャネルに参加しているユーザの居場所を知ることができるようにする必要があります。これにより、PRIVMSG と NOTICE メッセージがチャネルに最適に配信されます。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_BANNEDFROMCHAN
+        ERR_INVITEONLYCHAN              ERR_BADCHANNELKEY
+        ERR_CHANNELISFULL               ERR_BADCHANMASK
+        ERR_NOSUCHCHANNEL               ERR_TOOMANYCHANNELS
+        ERR_TOOMANYTARGETS              ERR_UNAVAILRESOURCE
+        RPL_TOPIC
+</code></pre>
+<p>例：</p>
+<pre><code>:WiZ JOIN #Twilight_zone
+    ; WiZ からの JOIN メッセージ
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="422-njoin-メッセージ"><a class="header" href="#422-njoin-メッセージ">4.2.2 Njoin メッセージ</a></h1>
+<pre><code>   Command: NJOIN
+Parameters: &lt;channel&gt; [ &quot;@@&quot; / &quot;@&quot; ] [ &quot;+&quot; ] &lt;nickname&gt;
+                      *( &quot;,&quot; [ &quot;@@&quot; / &quot;@&quot; ] [ &quot;+&quot; ] &lt;nickname&gt; )
+</code></pre>
+<p>NJOIN メッセージは、サーバ間でのみ使用されます。クライアントからこのようなメッセージを受信した場合、無視しなければなりません。2台のサーバが接続し、各チャネルのチャネルメンバー一覧を交換するときに使用されます。</p>
+<p>JOIN を連続させることで同じ機能を実現することができますが、より効率的であるため、このメッセージを代わりに使用することが望まれます。接頭辞 <code>@@</code> は &quot;チャネル作成者&quot;、<code>@</code> のみは &quot;チャネルオペレータ&quot;、<code>+</code>は &quot;音声権限者&quot; であることを示します。</p>
+<p>数値返信：</p>
+<pre><code>        ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
+        ERR_ALREADYREGISTRED
+</code></pre>
+<p>例：</p>
+<pre><code>:ircd.stealth.net NJOIN #Twilight_zone :@WiZ,+syrk,avalon
+    ; ircd.stealth.net からの NJOIN メッセージで、#Twilight_zone チャネルに参加するユーザをお知らせしています。
+      WiZ はチャネルオペレータ、syrk は音声権限、avalon は権限なし。
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="423-mode-メッセージ"><a class="header" href="#423-mode-メッセージ">4.2.3 Mode メッセージ</a></h1>
+<p>MODE メッセージは、IRC では2つの目的で使われるコマンドです。ユーザ名とチャネルの両方にモードを変更させることができます。</p>
+<p>MODE メッセージを解析する場合、まずメッセージ全体を解析し、その結果生じた変更を引き継ぐことをお勧めします。</p>
+<p>&quot;チャネル作成者&quot; と &quot;チャネルオペレータ&quot; を作成できるように、サーバがチャネルモードを変更できることが必要です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5-実装内容"><a class="header" href="#5-実装内容">5. 実装内容</a></h1>
+<p>このプロトコルの現在の実装は、執筆時点では IRC サーバのバージョン 2.10 のみです。それ以前のバージョンでは、このドキュメントで説明されているコマンドの一部または全部を、数値返信の多くを NOTICE メッセージに置き換えて実装しているかもしれません。残念ながら、後方互換性の要求のために、この文書のいくつかの部分の実装は、レイアウトされたものと異なっています。顕著な違いの1つは</p>
+<ul>
+<li>メッセージ内の任意の LF または CR は、CR-LF を必要とする代わりに、そのメッセージの終わりをマークすることを認識します。</li>
+</ul>
+<p>この章の残りの部分は、主にサーバを実装しようとする人にとって重要な問題を扱っていますが、いくつかの部分はクライアントにも直接適用されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="51-接続の-有効性"><a class="header" href="#51-接続の-有効性">5.1 接続の '有効性'</a></h1>
+<p>接続が切れたり応答しなくなったりしたことを検出するために、サーバは各接続をポーリングする必要があります。PING コマンド（<a href="https://solareenlo.com/rfc2812">&quot;IRC クライアントプロトコル&quot; [IRC-CLIENT]</a> 参照）は、サーバが一定時間内に相手から応答を得られない場合に使用されます。</p>
+<p>接続が時間内に応答しない場合、その接続は適切な手順で閉じられます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="52-クライアントからサーバへの接続受入れ"><a class="header" href="#52-クライアントからサーバへの接続受入れ">5.2 クライアントからサーバへの接続受入れ</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="521-ユーザ"><a class="header" href="#521-ユーザ">5.2.1 ユーザ</a></h1>
+<p>サーバは、新しいユーザ接続の登録に成功した場合、ユーザに対して以下のような明確なメッセージを送信することが要求されます。登録されたユーザー識別子（RPL_WELCOME）、サーバ名とバージョン（RPL_YOURHOST）、サーバ誕生情報（RPL_CREATED）、利用可能なユーザモードとチャネルモード（RPL_MYINFO）。と、適切と思われる紹介メッセージを送信することができます。</p>
+<p>特に、サーバは LUSER 応答で現在のユーザ／サービス／サーバ数を送信し、最後に MOTD 応答で MOTD があればそれを送信します。</p>
+<p>登録を処理した後、サーバは新しいユーザのニックネーム（NICK メッセージ）、それ自身から提供されたその他の情報（USER メッセージ）、およびサーバが DNS サーバから発見できたものを他のサーバに送信しなければなりません。サーバはこの情報を <a href="https://solareenlo.com/rfc2812">&quot;IRC クライアントプロトコル&quot; [IRC-CLIENT]</a> で定義されているように NICK と USER メッセージのペアで送信してはいけませんが、代わりに <a href="implementation-details/../message-details/nick.html">4.1.3 項</a> で定義されている拡張 NICK メッセージを活用しなければなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="522-サービス"><a class="header" href="#522-サービス">5.2.2 サービス</a></h1>
+<p>新しいサービス接続の登録に成功すると、サーバにはユーザと同じ種類の要件が適用されます。サービスは多少異なるため、以下の応答のみが送信されます。rpl_youreservice, rpl_yourhost, rpl_myinfo。</p>
+<p>これを処理した後、サーバは新しいサービスのニックネームとサービスから提供されたその他の情報（SERVICE メッセージ）およびサーバが DNS サーバから発見できた情報を他のサーバに SERVICE メッセージで送信しなければなりません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="53-サーバ-サーバの接続確立"><a class="header" href="#53-サーバ-サーバの接続確立">5.3 サーバ-サーバの接続確立</a></h1>
+<p>サーバ間接続のプロセスは、レースコンディションを筆頭に、問題が発生する可能性のある領域が数多く存在するため、危険と隣り合わせなのです。</p>
+<p>サーバは、有効であると認識された PASS/SERVER のペアに続く接続を受け取った後、その接続に対する自身の PASS/SERVER 情報と、以下に述べるように知っている他のすべての状態情報を返信する必要があります。</p>
+<p>開始サーバは PASS/SERVER のペアを受け取ると、応答したサーバが適切に認証されていることを確認した上で、そのサーバへの接続を受け入れます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="531-リンクオプション"><a class="header" href="#531-リンクオプション">5.3.1 リンクオプション</a></h1>
+<p>サーバリンクは共通のプロトコル（本書で定義）に基づきますが、特定のリンクは PASS メッセージを用いて特定のオプションを設定することができます（<a href="implementation-details/../message-details/password-message.html">4.1.1 項</a> 参照）。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5311-圧縮されたサーバ間リンク"><a class="header" href="#5311-圧縮されたサーバ間リンク">5.3.1.1 圧縮されたサーバ間リンク</a></h1>
+<p>サーバが相手と圧縮リンクを確立したい場合は、PASS メッセージのオプションパラメータに &quot;Z&quot; フラグを設定する必要があります。両方のサーバが圧縮を要求し、両方のサーバが2つの圧縮されたストリームを初期化できる場合、残りの通信は圧縮されることになります。いずれかのサーバがストリームの初期化に失敗した場合、そのサーバは圧縮されていない ERROR メッセージを相手側に送信し、接続を終了します。</p>
+<p>圧縮に使用するデータ形式は、<a href="https://datatracker.ietf.org/doc/html/rfc1950">RFC1950 [ZLIB]</a>、<a href="https://datatracker.ietf.org/doc/html/rfc1951">RFC1951 [DEFLATE]</a>、<a href="https://datatracker.ietf.org/doc/html/rfc1952">RFC1952 [GZIP]</a> で記述されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="5312-不正使用防止対策"><a class="header" href="#5312-不正使用防止対策">5.3.1.2 不正使用防止対策</a></h1>
+<p>ほとんどのサーバは、信頼できない当事者（通常はユーザ）から起こりうる悪用行為に対して、さまざまな種類の保護機能を実装しています。ネットワークによっては、このような保護が必要不可欠な場合もあれば、不必要な場合もあります。特定のネットワークにおいて、すべてのサーバがそのような機能を実装し、有効にすることを要求するために、2つのサーバが接続するときに &quot;P&quot; フラグが使用されます。このフラグがある場合、サーバの保護機能が有効であることを意味し、サーバはすべてのサーバリンクに対して同様に保護機能を有効にすることを要求します。</p>
+<p>一般的に見られる保護機能は、<a href="implementation-details/./tracking-recently-used-nicknames.html">5.7 最近使ったニックネームの追跡</a> と <a href="implementation-details/./flood-control-of-clients.html">5.8 クライアントの大量リクエスト対策</a> で説明されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="532-接続時の状態情報の交換"><a class="header" href="#532-接続時の状態情報の交換">5.3.2 接続時の状態情報の交換</a></h1>
+<p>サーバ間で交換される状態情報の順序が重要です。必要な順序は以下の通りです。</p>
+<ul>
+<li>
+<p>既知の全サーバ</p>
+</li>
+<li>
+<p>すべての既知のクライアント情報</p>
+</li>
+<li>
+<p>すべての既知のチャネル情報</p>
+</li>
+</ul>
+<p>サーバに関する情報は SERVER メッセージ、クライアント情報は NICK メッセージと SERVICE メッセージ、チャネルは NJOIN/MODE メッセージで追加送信されます。</p>
+<p>NOTE：TOPIC コマンドは古いトピック情報を上書きするため、せいぜい接続の両側でトピックを交換する程度なので、ここでチャネルのトピックを交換するべきではありません。</p>
+<p>サーバの状態情報を先に渡すことで、すでに存在するサーバとの衝突は、第二サーバが特定のニックネームを導入することによるニックネームの衝突よりも先に発生します。IRC ネットワークは非周期的なグラフとしてしか存在できないため、ネットワークがすでに別の場所で再接続されている可能性があります。この場合、サーバの衝突が発生した場所は、ネットが分割される必要がある場所を示しています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="54-サーバ-クライアント接続の終了"><a class="header" href="#54-サーバ-クライアント接続の終了">5.4 サーバ-クライアント接続の終了</a></h1>
+<p>クライアント接続が予期せず終了した場合、そのクライアントが接続していたサーバが、クライアントに代わって QUIT メッセージを生成します。他のメッセージは生成されず、使用されません。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="55-サーバ-サーバの接続終了"><a class="header" href="#55-サーバ-サーバの接続終了">5.5 サーバ-サーバの接続終了</a></h1>
+<p>サーバとサーバの接続が、SQUIT コマンドまたは &quot;自然な&quot; 原因によって閉じられた場合、接続されている残りの IRC ネットワークは、閉鎖を検出したサーバによってその情報が更新されなければなりません。終了するサーバは次に SQUIT のリスト（その接続の背後にある各サーバに対して1つ)を送信する。(セクション4.1.6(SQUIT)参照)。</p>
+<p>サーバとサーバの接続が、SQUIT コマンドまたは &quot;自然な&quot; 原因によって閉じられた場合、接続されている残りの IRC ネットワークは、閉鎖を検出したサーバによってその情報が更新されなければなりません。終了するサーバは次に SQUIT のリスト（その接続の背後にある各サーバに対して1つ）を送信します。（<a href="implementation-details/../message-details/server-quit-message.html">4.1.6 SQUIT</a> 参照）。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="56-ニックネーム変更の追跡"><a class="header" href="#56-ニックネーム変更の追跡">5.6 ニックネーム変更の追跡</a></h1>
+<p>すべての IRC サーバは最近のニックネームの変更履歴を保持することが要求されます。これはニックネームを操作するコマンドでニックネーム変更の競合状態が発生したときに、サーバが状況を把握する機会を持つために重要です。ニックネームの変更を追跡しなければならないメッセージは以下の通りです。</p>
+<ul>
+<li>
+<p>KILL （切断されるニックネーム）</p>
+</li>
+<li>
+<p>MODE （チャネル上の <code>+</code>/<code>-</code> <code>o</code>,<code>v</code>）</p>
+</li>
+<li>
+<p>KICK （チャネルから外されるニックネーム）</p>
+</li>
+</ul>
+<p>他のコマンドでニックの変更を確認する必要はありません。</p>
+<p>上記の場合、サーバはまずニックネームの存在を確認し、次にそのニックネームが今誰のものなのか（もし誰かいれば！）履歴を確認する必要があります。これはレースコンディションの可能性を減らしますが、サーバが間違ったクライアントに影響を及ぼしてしまうということはまだ起こり得ます。上記のコマンドで変更履歴を調べるときは、時間範囲を指定し、古すぎるエントリは無視することをお勧めします。</p>
+<p>合理的な履歴のために、サーバは、彼らがすべて変更することを決めた場合、それが知っているすべてのクライアントのために前のニックネームを保持することができるはずです。このサイズは他の要因（例えばメモリなど）によって制限されます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="57-最近使ったニックネームの追跡"><a class="header" href="#57-最近使ったニックネームの追跡">5.7 最近使ったニックネームの追跡</a></h1>
+<p>この機構は一般に &quot;ニックネーム遅延&quot; と呼ばれ、&quot;ネットワーク分割&quot;/再接続や不正使用によるニックネーム衝突の数を大幅に減少させることが証明されています。</p>
+<p>ニックネームの変更を追跡することに加え、サーバは最近使用され、&quot;ネットワーク分割&quot; または KILL メッセージの結果として解放されたニックネームを追跡する必要があります。これらのニックネームはサーバ・ローカルクライアントから利用できなくなり、一定期間現在使用されていないにもかかわらず再利用することができなくなります。</p>
+<p>ニックネームが利用できなくなる期間は、IRC ネットワークのサイズ（ユーザ数）や &quot;ネットワーク分割&quot; の通常の期間など、多くの要因を考慮して設定する必要があります。これはある IRC ネットワークのすべてのサーバで均一であるべきです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="58-クライアントの大量リクエスト対策"><a class="header" href="#58-クライアントの大量リクエスト対策">5.8 クライアントの大量リクエスト対策</a></h1>
+<p>IRC サーバが相互に接続された大規模なネットワークでは、ネットワークに接続している任意の1つのクライアントが、ネットワークをフラッディングさせるだけでなく、他のクライアントに提供するサービスのレベルを低下させる結果となるメッセージの連続ストリームを供給することは非常に簡単です。すべての &quot;犠牲者&quot; が独自の保護を提供することを要求するのではなく、フラッド保護がサーバに書き込まれ、サービス以外のすべてのクライアントに適用されます。現在のアルゴリズムは以下の通りです。</p>
+<ul>
+<li>
+<p>クライアントの &quot;メッセージタイマー&quot; が現在の時刻より小さいかどうか調べます（小さい場合は等しくなるように設定します）。</p>
+</li>
+<li>
+<p>クライアントから存在するあらゆるデータを読み取ります。</p>
+</li>
+<li>
+<p>タイマーが現在時刻より10秒以上進んでいない間、現在のメッセージをすべて解析し、メッセージごとにクライアントに2秒のペナルティを課します。</p>
+</li>
+<li>
+<p>ネットワーク上で多くのトラフィックを発生させる特定のコマンドに対して、追加のペナルティを使用することができます。</p>
+</li>
+</ul>
+<p>これは要するに、クライアントが悪影響を受けることなく、2秒に1回メッセージを送信できることを意味します。サービスにもこの仕組みが適用される場合があります。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="59-ノンブロッキングルックアップ"><a class="header" href="#59-ノンブロッキングルックアップ">5.9 ノンブロッキングルックアップ</a></h1>
+<p>リアルタイム環境では、すべてのクライアントに公平にサービスを提供するために、サーバプロセスができるだけ待機しないことが重要です。このためには、ネットワーク上のすべての読み取り/書き込み操作において、ノンブロッキング IO が必要であることは明らかです。通常のサーバ接続では、これは難しいことではありませんでしたが、サーバがブロックする可能性のある他のサポート操作（ディスク読み取りなど）があります。可能であれば、そのような動作は短いタイムアウトで実行されるべきです。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="591-ホスト名-dns-ルックアップ"><a class="header" href="#591-ホスト名-dns-ルックアップ">5.9.1 ホスト名 (DNS) ルックアップ</a></h1>
+<p>Berkeley などの標準的なリゾルバライブラリを使用すると、返信がタイムアウトするケースもあり、大きな遅延が発生しました。これを避けるために、現在の実装では、DNS ルーチンの別セットが書かれました。ルーチンはローカルキャッシュによるノンブロッキング IO 操作のためにセットアップされ、メインサーバの IO ループの中からポーリングされました。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="592-ユーザ名-ident-ルックアップ"><a class="header" href="#592-ユーザ名-ident-ルックアップ">5.9.2 ユーザ名 (Ident) ルックアップ</a></h1>
+<p>他のプログラムに組み込んで使用するための ident ライブラリ（&quot;Ident Protocol&quot; [IDENT] を実装）は数多く存在するが、これらは同期的に動作するため、頻繁に遅延が生じるという問題がありました。この場合も、サーバの他の部分と協調し、ノンブロッキング IO で動作するルーチン群を書くことが解決策となりました。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="6-現在の問題点"><a class="header" href="#6-現在の問題点">6. 現在の問題点</a></h1>
+<p>このプロトコルにはいくつかの問題があるとされており、近い将来の書き換えで解決されることが期待されています。現在、これらの問題に対する実用的な解決策を見つけるための作業が進行中です。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="61-スケーラビリティ"><a class="header" href="#61-スケーラビリティ">6.1 スケーラビリティ</a></h1>
+<p>このプロトコルは、大規模な舞台で使用する場合、十分にスケールしないことが広く認識されています。主な問題は、すべてのサーバが他のすべてのサーバとクライアントについて知っており、それらに関する情報が変更されたらすぐに更新されるという要件から来るものです。また、任意の2点間の経路長が最小に保たれ、スパニングツリーができるだけ強く分岐するように、サーバの数を少なくすることが望ましいとされています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="62-ラベル"><a class="header" href="#62-ラベル">6.2 ラベル</a></h1>
+<p>現在の IRC プロトコルには、ニックネーム、チャネル名、サーバ名、サービス名の4種類のラベルがあります。4つのタイプはそれぞれ独自のドメインを持ち、そのドメイン内では重複が許されません。現在、ユーザが最初の3つのラベルのいずれかを選ぶことが可能で、その結果、衝突が発生しています。衝突しないようなニックネームの計画が望まれますし、循環ツリーを可能にする解決策も必要であることは広く認識されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="621-ニックネーム"><a class="header" href="#621-ニックネーム">6.2.1 ニックネーム</a></h1>
+<p>IRC におけるニックネームの考え方は、ユーザがチャネル外で会話する際に非常に便利ですが、ニックネームのスペースは有限であり、そのようなものである以上、複数の人が同じニックネームを使いたいと思うことは珍しいことではありません。もしこのプロトコルを使っている二人がニックネームを選んだ場合、どちらかが成功しないか、KILL を使って両方が削除されます（<a href="https://solareenlo.com/rfc2812/message-details/kill-message.html">&quot;IRC クライアントプロトコル&quot; [IRC-CLIENT] の 3.7.1 節</a> を参照してください)。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="622-チャネル"><a class="header" href="#622-チャネル">6.2.2 チャネル</a></h1>
+<p>現在のチャネルレイアウトでは、すべてのサーバがすべてのチャネル、その住人、プロパティについて知っている必要があります。うまく拡張できないことに加えて、プライバシの問題も懸念されます。チャネルの衝突は、ニックネームの衝突を解決するために使用されるような排他的なものではなく、共通の名前を持つチャネル上の両方のネットの人々がそのメンバであるとみなされる包括的なイベントとして扱われます。</p>
+<p>このプロトコルでは、チャネル衝突の可能性が極めて低い &quot;安全なチャネル&quot; を定義しています。その他のチャネルタイプは後方互換性のために残されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="623-サーバ"><a class="header" href="#623-サーバ">6.2.3 サーバ</a></h1>
+<p>通常、サーバの数はユーザやチャネルの数に比べて少ないのですが、現在、サーバもそれぞれ個別に、あるいはマスクの後ろに隠れてグローバルに知られていることが要求されています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="63-アルゴリズム"><a class="header" href="#63-アルゴリズム">6.3 アルゴリズム</a></h1>
+<p>サーバコード内のいくつかの場所では、クライアントのセットのチャネルリストをチェックするような \(N^2\) アルゴリズムを回避することができませんでした。</p>
+<p>現在のサーバのバージョンでは、データベースの整合性チェックはほとんど行われておらず、ほとんどの場合、各サーバは隣のサーバが正しいことを前提にしています。そのため、接続先のサーバがバグっていたり、既存のネットに矛盾を持ち込もうとしたりすると、大きな問題が発生する可能性があります。</p>
+<p>現在、内部およびグローバルラベルが一意でないため、多数のレースコンディションが存在します。これらの競合状態は、一般に、メッセージが IRC ネットワークを横断して影響を及ぼすのに時間がかかるという問題から生じます。ユニークなラベルに変更することによっても、チャネル関連のコマンドが中断される問題があります。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="7-セキュリティへの配慮"><a class="header" href="#7-セキュリティへの配慮">7. セキュリティへの配慮</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="71-認証"><a class="header" href="#71-認証">7.1 認証</a></h1>
+<p>サーバには、プレーンテキストパスワードと DNS ルックアップという2つの認証手段しかありません。これらの方法は脆弱であり、安全でないことは広く認識されていますが、過去には以下の組み合わせで十分であることが証明されています。</p>
+<ul>
+<li>
+<p>公共ネットワークは通常、正確な認証を必要とせず、わずかな制限でユーザ接続を許可します。</p>
+</li>
+<li>
+<p>管理された環境で運用されるプライベートネットワークでは、インターネットでは利用できない自前の認証機構、すなわち信頼できる ID サーバ [IDENT] やその他の独自機構を使用することがよくあります。</p>
+</li>
+</ul>
+<p>IRC オペレータの認証についても、同様のコメントがあります。</p>
+<p>また、より強力な認証が長年にわたって求められてきたわけではなく、ユーザを安全に認証するためのより良い手段を提供するための真の努力もなされてこなかったが、現在のプロトコルでは、クライアントが接続時にサーバに送信できる情報（ニックネーム、ユーザ名、パスワード）に基づいて、外部認証手段を簡単にプラグインできるような十分な環境が整っていることも指摘しておかなければならないだろう。</p>
+<p>また、長年にわたって認証の強化が求められてきたわけではなく、ユーザを安全に認証するためのより良い手段を提供するための真の努力もなされてこなかったことに留意する必要があります。現在のプロトコルは、クライアントが接続時にサーバに送信できる情報（ニックネーム、ユーザ名、パスワード）に基づいて、外部の認証方法を簡単にプラグインできるようにするのに十分な機能を備えています。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="72-インテグリティ"><a class="header" href="#72-インテグリティ">7.2 インテグリティ</a></h1>
+<p>IRC プロトコルの PASS と OPER メッセージは平文で送信されるので、これらの取引を保護するために <a href="https://solareenlo.com/rfc7194">&quot;The TLS Protocol&quot; [TLS]</a> のようなストリーム層暗号化機構を使用することができます。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="8-現在のサポートと可用性"><a class="header" href="#8-現在のサポートと可用性">8. 現在のサポートと可用性</a></h1>
+<p>IRC 関連の議論を行うためのメーリングリスト：</p>
+<ul>
+<li>General discussion: ircd-users@irc.org</li>
+<li>Protocol development: ircd-dev@irc.org</li>
+</ul>
+<p>ソフトウェアの実装：</p>
+<ul>
+<li><a href="ftp://ftp.irc.org/irc/server">ftp://ftp.irc.org/irc/server</a></li>
+<li><a href="ftp://ftp.funet.fi/pub/unix/irc">ftp://ftp.funet.fi/pub/unix/irc</a></li>
+<li><a href="ftp://coombs.anu.edu.au/pub/irc">ftp://coombs.anu.edu.au/pub/irc</a></li>
+</ul>
+<p>Newsgroup: alt.irc</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="9-謝辞"><a class="header" href="#9-謝辞">9. 謝辞</a></h1>
+<p>この文書の一部は、IRC プロトコルを最初に正式に文書化した <a href="https://solareenlo.com/rfc1459">RFC 1459 [IRC]</a> からコピーされたものです。また、多くのレビューとコメントから恩恵を受けています。特に、以下の方々がこの文書に大きな貢献をされました。</p>
+<p>Matthew Green, Michael Neumayer, Volker Paulsen, Kurt Roeckx, Vesa Ruokonen, Magnus Tjernstrom, Stefan Zehl.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="10-参考"><a class="header" href="#10-参考">10. 参考</a></h1>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc2119">[KEYWORDS]</a>
+Bradner, S., &quot;Key words for use in RFCs to Indicate Requirement Levels&quot;, BCP 14, RFC 2119, March 1997.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc2234">[ABNF]</a>
+Crocker, D. and P. Overell, &quot;Augmented BNF for Syntax Specifications: ABNF&quot;, RFC 2234, November 1997.</p>
+<p><a href="https://solareenlo.com/rfc1459">[IRC]</a>
+Oikarinen, J. and D. Reed, &quot;Internet Relay Chat Protocol&quot;, RFC 1459, May 1993.</p>
+<p><a href="https://solareenlo.com/rfc2810">[IRC-ARCH]</a>
+Kalt, C., &quot;Internet Relay Chat: Architecture&quot;, RFC 2810, April 2000.</p>
+<p><a href="https://solareenlo.com/rfc2812">[IRC-CLIENT]</a>
+Kalt, C., &quot;Internet Relay Chat: Client Protocol&quot;, RFC 2812, April 2000.</p>
+<p><a href="https://solareenlo.com/rfc2811">[IRC-CHAN]</a>
+Kalt, C., &quot;Internet Relay Chat: Channel Management&quot;, RFC 2811, April 2000.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1950">[ZLIB]</a>
+Deutsch, P. and J-L. Gailly, &quot;ZLIB Compressed Data Format Specification version 3.3&quot;, RFC 1950, May 1996.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1951">[DEFLATE]</a>
+Deutsch, P., &quot;DEFLATE Compressed Data Format Specification version 1.3&quot;, RFC 1951, May 1996.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1952">[GZIP]</a>
+Deutsch, P., &quot;GZIP file format specification version 4.3&quot;, RFC 1952, May 1996.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1993">[IDENT]</a>
+St. Johns, M., &quot;The Identification Protocol&quot;, RFC 1413, February 1993.</p>
+<p><a href="https://datatracker.ietf.org/doc/html/rfc1999">[TLS]</a>
+Dierks, T. and C. Allen, &quot;The TLS Protocol&quot;, RFC 2246, January 1999.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="11-authors-address"><a class="header" href="#11-authors-address">11. Author's Address</a></h1>
+<pre><code>   Christophe Kalt
+   99 Teaneck Rd, Apt #117
+   Ridgefield Park, NJ 07660
+   USA
+
+   EMail: kalt@stealth.net
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="12-full-copyright-statement"><a class="header" href="#12-full-copyright-statement">12. Full Copyright Statement</a></h1>
+<pre><code>   Copyright (C) The Internet Society (2000).  All Rights Reserved.
+
+   This document and translations of it may be copied and furnished to
+   others, and derivative works that comment on or otherwise explain it
+   or assist in its implementation may be prepared, copied, published
+   and distributed, in whole or in part, without restriction of any
+   kind, provided that the above copyright notice and this paragraph are
+   included on all such copies and derivative works.  However, this
+   document itself may not be modified in any way, such as by removing
+   the copyright notice or references to the Internet Society or other
+   Internet organizations, except as needed for the purpose of
+   developing Internet standards in which case the procedures for
+   copyrights defined in the Internet Standards process must be
+   followed, or as required to translate it into languages other than
+   English.
+
+   The limited permissions granted above are perpetual and will not be
+   revoked by the Internet Society or its successors or assigns.
+
+   This document and the information contained herein is provided on an
+   &quot;AS IS&quot; basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+</code></pre>
+<p>Acknowledgement</p>
+<p>Funding for the RFC Editor function is currently provided by the Internet Society.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript" src="src/theme/theme-solarized_dark.js"></script>
+        <script type="text/javascript" src="src/theme/theme-solarized_light.js"></script>
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+    </body>
+</html>
