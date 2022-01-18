@@ -12,7 +12,7 @@ Parameters: <nickname> <hopcount> <username> <host> <servertoken>
 
 `<hopcount>` パラメータは、ユーザがホームサーバからどのくらい離れているかを示すためにサーバが使用します。ローカル接続の場合、ホップカウントは `0` です。ホップカウントの値は、渡されたサーバごとに増加されます。
 
-`<servertoken>` パラメータは USER の `<servername>` パラメータを置き換えます（サーバートークンの詳細については [4.1.2 節](./server-message.md) を参照してください）。
+`<servertoken>` パラメータは USER の `<servername>` パラメータを置き換えます（サーバートークンの詳細については [4.1.2 項](./server-message.md) を参照してください）。
 
 例：
 
