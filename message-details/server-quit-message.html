@@ -166,7 +166,6 @@ Parameters: &lt;server&gt; &lt;comment&gt;
 <p>同様に、QUIT メッセージは、その終了するリンクの背後にあるすべてのクライアントに代わって、まだ接続している他のサーバに送信されるかもしれません。これに加えて、&quot;分割&quot; によってメンバを失ったチャネルの全メンバに QUIT メッセージを送らなければなりません。チャネルメンバへのメッセージは、各クライアントのローカルサーバで生成されます。</p>
 <p>サーバ接続が早期に切断された場合（リンクの反対側のサーバが死んだなど）、この切断を検出したサーバは、ネットワークの残りの部分に接続が終了したことを通知し、コメントフィールドに適切な内容を記入することが要求されます。</p>
 <p>SQUIT メッセージの結果としてクライアントが削除されたとき、サーバは将来のニックネームの衝突を防ぐために、一時的に利用できないニックネームのリストにニックネームを追加すべきです。この手順の詳細については <a href="../implementation-details/tracking-recently-used-nicknames.html">5.7 最近使ったニックネームの追跡</a> を参照してください。</p>
-<p>When a client is removed as the result of a SQUIT message, the server should add the nickname to the list of temporarily unavailable nicknames in an attempt to prevent future nickname collisions. See section 5.7 (Tracking recently used nicknames) for more information on this procedure.</p>
 <p>数値返信：</p>
 <pre><code>        ERR_NOPRIVILEGES                ERR_NOSUCHSERVER
         ERR_NEEDMOREPARAMS
