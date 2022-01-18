@@ -21,8 +21,6 @@ SQUITメッセージには、2つの明確な使い方があります。
 
 SQUIT メッセージの結果としてクライアントが削除されたとき、サーバは将来のニックネームの衝突を防ぐために、一時的に利用できないニックネームのリストにニックネームを追加すべきです。この手順の詳細については [5.7 最近使ったニックネームの追跡](../implementation-details/tracking-recently-used-nicknames.md) を参照してください。
 
-When a client is removed as the result of a SQUIT message, the server should add the nickname to the list of temporarily unavailable nicknames in an attempt to prevent future nickname collisions. See section 5.7 (Tracking recently used nicknames) for more information on this procedure.
-
 数値返信：
 
 ```
