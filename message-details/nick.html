@@ -162,7 +162,7 @@ Parameters: &lt;nickname&gt; &lt;hopcount&gt; &lt;username&gt; &lt;host&gt; &lt;
 <p>この形式の NICK メッセージは、ユーザ接続から許可されてはいけません。しかし、IRC ネットワークに新しいユーザが参加したことを他のサーバに通知するために、NICK/USER ペアの代わりに使用する必要があります。</p>
 <p>このメッセージは、実際には3つの異なるメッセージが組み合わされたものです。NICK、USER、MODE <a href="https://solareenlo.com/rfc2812">[IRC-CLIENT]</a> です。</p>
 <p><code>&lt;hopcount&gt;</code> パラメータは、ユーザがホームサーバからどのくらい離れているかを示すためにサーバが使用します。ローカル接続の場合、ホップカウントは <code>0</code> です。ホップカウントの値は、渡されたサーバごとに増加されます。</p>
-<p><code>&lt;servertoken&gt;</code> パラメータは USER の <code>&lt;servername&gt;</code> パラメータを置き換えます（サーバートークンの詳細については <a href="./server-message.html">4.1.2 節</a> を参照してください）。</p>
+<p><code>&lt;servertoken&gt;</code> パラメータは USER の <code>&lt;servername&gt;</code> パラメータを置き換えます（サーバートークンの詳細については <a href="./server-message.html">4.1.2 項</a> を参照してください）。</p>
 <p>例：</p>
 <pre><code>NICK syrk 5 kalt millennium.stealth.net 34 +i :Christophe Kalt
     ; ニックネーム &quot;syrk&quot;、ユーザ名 &quot;kalt&quot; の新規ユーザが、
